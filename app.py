@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-MODEL_PATH = r'C:\Users\khoop\Downloads\BigDataGroupAssignment\gbt_model.pkl'
+MODEL_PATH = 'gbt_model.pkl'
 
 # AgeGroup mapping
 AGE_LABELS = [
@@ -589,4 +589,5 @@ st.markdown("""
     <p style="font-size: 1rem; margin-top: 1rem;">🌟 <strong>Remember:</strong> Prevention is better than cure</p>
     <p style="font-size: 0.9rem; margin-top: 1rem; color: #999;">Made with ❤️ for cardiovascular health awareness</p>
 </div>
+
 """, unsafe_allow_html=True)
