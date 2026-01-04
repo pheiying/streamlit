@@ -53,9 +53,15 @@ st.markdown("""
     }
     
     .stApp {
-        background: linear-gradient(45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background: linear-gradient(
+            45deg,
+            #fde2e4,
+            #f8edeb,
+            #e3f2fd,
+            #e8f5e9
+        );
         background-size: 400% 400%;
-        animation: gradientShift 15s ease infinite;
+        animation: gradientShift 20s ease infinite;
     }
     
     @keyframes gradientShift {
@@ -591,3 +597,4 @@ st.markdown("""
 </div>
 
 """, unsafe_allow_html=True)
+
