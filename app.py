@@ -11,10 +11,8 @@ AGE_LABELS = [
     "50-54", "55-59", "60-64", "65-69", "70-74", "75-79", "80+"
 ]
 
-
 def age_to_agegroup(age_code: int) -> str:
     return AGE_LABELS[age_code - 1]
-
 
 def age_to_ageband(age_code: int) -> str:
     if 1 <= age_code <= 3:
@@ -27,7 +25,6 @@ def age_to_ageband(age_code: int) -> str:
         return "65-74"
     return "75+"
 
-
 def riskscore_to_profile(risk_score: int) -> str:
     if risk_score <= 1:
         return "Healthy"
@@ -35,16 +32,13 @@ def riskscore_to_profile(risk_score: int) -> str:
         return "ModerateRisk"
     return "HighRisk"
 
-
 @st.cache_resource
 def load_model():
     return joblib.load(MODEL_PATH)
 
-
 @st.cache_resource
 def load_preprocessor():
     return joblib.load(PREPROCESSOR)
-
 
 # Page configuration
 st.set_page_config(
@@ -53,7 +47,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
-
 
 # Custom CSS
 st.markdown("""
@@ -346,10 +339,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
 model = load_model()
 preprocessor = load_preprocessor()
-
 
 # Sidebar inputs
 with st.sidebar:
@@ -394,7 +385,6 @@ with st.sidebar:
     fruits = st.checkbox("Regular Fruit Consumption", value=True)
     veggies = st.checkbox("Regular Vegetable Consumption", value=True)
 
-
 # Feature engineering
 health_stress_index = float(ment_hlth + phys_hlth)
 disease_count = int(highbp) + int(highchol) + int(diabetes) + int(stroke)
@@ -412,7 +402,7 @@ age_group = age_to_agegroup(age_code)
 age_band = age_to_ageband(age_code)
 lifestyle_profile = riskscore_to_profile(risk_score)
 
-# Dataframe remains unchanged
+# Dataframe
 X = pd.DataFrame([{
     "Age": float(age_code),
     "PhysHlth": float(phys_hlth),
@@ -434,7 +424,6 @@ X = pd.DataFrame([{
     "LifestyleProfile": lifestyle_profile
 }])
 
-
 # Header
 st.markdown("""
 <div class="hero-card">
@@ -446,7 +435,6 @@ st.markdown("""
     </div>
 </div>
 """, unsafe_allow_html=True)
-
 
 # Main layout
 left_col, right_col = st.columns([1.7, 1], gap="large")
@@ -543,10 +531,6 @@ with left_col:
                 </div>
             </div>
             """, unsafe_allow_html=True)
-
-    with st.expander("View Model Input DataFrame"):
-        st.dataframe(X, use_container_width=True)
-
 
 with right_col:
     st.markdown("""
