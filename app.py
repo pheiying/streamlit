@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-MODEL_PATH = 'final_lightgbm_model.pkl'
+MODEL_PATH = 'final_catboost_model.pkl'
 PREPROCESSOR = 'preprocessor.pkl'
 
 # AgeGroup mapping
