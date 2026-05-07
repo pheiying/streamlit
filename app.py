@@ -345,7 +345,28 @@ preprocessor = load_preprocessor()
 # Sidebar inputs
 with st.sidebar:
     st.markdown("## Patient Profile")
-    st.caption("Enter the patient information below. The same model variables and dataframe structure are preserved.")
+    st.caption("Provide your health and lifestyle information to generate a heart disease risk assessment.")
+
+    st.markdown("### Patient Details")
+    patient_name = st.text_input(
+        "Patient Name",
+        placeholder="Enter patient name"
+    )
+
+    if patient_name:
+        st.markdown(f"""
+        <div style="
+            background: #f8fafc;
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #1e293b;
+        ">
+            👋 Hi, <strong>{patient_name}</strong>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("### Demographics")
     agegroup_label = st.selectbox("Age Group", AGE_LABELS, index=8)
@@ -443,7 +464,7 @@ with left_col:
     st.markdown("""
     <div class="clean-card">
         <div class="card-title">Patient Risk Overview</div>
-        <div class="card-caption">Key engineered indicators generated from the selected patient inputs.</div>
+        <div class="card-caption">Key engineered indicators generated from the patient inputs.</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -519,7 +540,7 @@ with left_col:
 
             st.markdown(f"""
             <div class="result-card {result_class}">
-                <div style="font-size:1rem; font-weight:800; color:#475569;">Prediction Result</div>
+                <div style="font-size:1rem; font-weight:800; color:#475569;">Prediction Result for {patient_name}</div>
                 <div style="font-size:1.65rem; font-weight:900; margin-top:0.2rem;">{emoji} {level}</div>
                 <div class="result-percentage" style="color:{bar_colour};">{risk_percentage:.1f}%</div>
                 <div style="color:#64748b; font-size:0.98rem;">Estimated probability of heart disease based on the current inputs.</div>
