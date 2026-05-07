@@ -505,48 +505,44 @@ with left_col:
 
             if hasattr(model, "predict_proba"):
                 proba = float(model.predict_proba(X_processed)[0][1])
-                risk_percentage = proba * 100
-
-                if risk_percentage < 30:
-                    level = "Low Risk"
-                    result_class = "result-low"
-                    emoji = "✅"
-                    bar_colour = "#22c55e"
-                    recommendation = "Continue maintaining a balanced lifestyle, regular physical activity, and routine health checks."
-                elif risk_percentage < 70:
-                    level = "Moderate Risk"
-                    result_class = "result-moderate"
-                    emoji = "⚠️"
-                    bar_colour = "#f59e0b"
-                    recommendation = "Consider improving lifestyle factors and monitoring blood pressure, cholesterol, BMI, and diabetes-related indicators regularly."
-                else:
-                    level = "High Risk"
-                    result_class = "result-high"
-                    emoji = "🚨"
-                    bar_colour = "#ef4444"
-                    recommendation = "Seek advice from a qualified healthcare professional for proper clinical assessment and personalised guidance."
-
-                st.markdown(f"""
-                <div class="result-card {result_class}">
-                    <div style="font-size:1rem; font-weight:800; color:#475569;">Prediction Result</div>
-                    <div style="font-size:1.65rem; font-weight:900; margin-top:0.2rem;">{emoji} {level}</div>
-                    <div class="result-percentage" style="color:{bar_colour};">{risk_percentage:.1f}%</div>
-                    <div style="color:#64748b; font-size:0.98rem;">Estimated probability of heart disease based on the current inputs.</div>
-                    <div class="progress-shell">
-                        <div class="progress-fill" style="width:{risk_percentage}%; background:{bar_colour};"></div>
-                    </div>
-                    <div class="recommendation-box">
-                        <strong>Recommendation:</strong> {recommendation}
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
-
             else:
-                pred = int(model.predict(X_processed)[0])
-                if pred == 1:
-                    st.error("High Risk Detected. The model does not provide probability output.")
-                else:
-                    st.success("Low Risk Detected. The model does not provide probability output.")
+                proba = float(model.predict(X_processed)[0])
+
+            risk_percentage = proba * 100
+
+            if risk_percentage < 30:
+                level = "Low Risk"
+                result_class = "result-low"
+                emoji = "✅"
+                bar_colour = "#22c55e"
+                recommendation = "Continue maintaining a balanced lifestyle, regular physical activity, and routine health checks."
+            elif risk_percentage < 70:
+                level = "Moderate Risk"
+                result_class = "result-moderate"
+                emoji = "⚠️"
+                bar_colour = "#f59e0b"
+                recommendation = "Consider improving lifestyle factors and monitoring blood pressure, cholesterol, BMI, and diabetes-related indicators regularly."
+            else:
+                level = "High Risk"
+                result_class = "result-high"
+                emoji = "🚨"
+                bar_colour = "#ef4444"
+                recommendation = "Seek advice from a qualified healthcare professional for proper clinical assessment and personalised guidance."
+
+            st.markdown(f"""
+            <div class="result-card {result_class}">
+                <div style="font-size:1rem; font-weight:800; color:#475569;">Prediction Result</div>
+                <div style="font-size:1.65rem; font-weight:900; margin-top:0.2rem;">{emoji} {level}</div>
+                <div class="result-percentage" style="color:{bar_colour};">{risk_percentage:.1f}%</div>
+                <div style="color:#64748b; font-size:0.98rem;">Estimated probability of heart disease based on the current inputs.</div>
+                <div class="progress-shell">
+                    <div class="progress-fill" style="width:{risk_percentage}%; background:{bar_colour};"></div>
+                </div>
+                <div class="recommendation-box">
+                    <strong>Recommendation:</strong> {recommendation}
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
     with st.expander("View Model Input DataFrame"):
         st.dataframe(X, use_container_width=True)
@@ -573,18 +569,6 @@ with right_col:
     """, unsafe_allow_html=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
-
-    st.markdown("""
-    <div class="clean-card">
-        <div class="card-title">Interface Improvements</div>
-        <div class="card-caption">Compared with the older design, this version uses:</div>
-        <div class="factor-list">✔ Cleaner sidebar grouping</div>
-        <div class="factor-list">✔ Professional dashboard-style cards</div>
-        <div class="factor-list">✔ Clearer result hierarchy</div>
-        <div class="factor-list">✔ Less visual clutter and softer styling</div>
-    </div>
-    """, unsafe_allow_html=True)
-
 
 st.markdown("""
 <div class="footer-note">
